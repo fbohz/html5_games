@@ -5,13 +5,22 @@
   </head>
   <body>
     <!-- <h3>Retro Snake</h3> -->
-    <small><i>You can use keyboard arrows or buttons below to move snake.</small></i></br> </br> 
     &nbsp;&nbsp;&nbsp;&nbsp; <button id="up" class="w3-button w3-indigo w3-round-xxlarge" onclick="mangeKeyBtnPressed(event)">↑</button></br> 
     <button id="left" class="w3-button w3-purple w3-round-xxlarge" onclick="mangeKeyBtnPressed(event)">←</button>
     <button id="right" class="w3-button w3-purple w3-round-xxlarge"  onclick="mangeKeyBtnPressed(event)">→</button></br> 
     &nbsp;&nbsp;&nbsp;&nbsp;<button id="down" class="w3-button w3-indigo w3-round-xxlarge" onclick="mangeKeyBtnPressed(event)">↓</button></br>
-    <h4 id="score" class="w3-center"></h4>
-    <canvas width="500" height="500" id="ctx" style="border:2px solid #32CD32"/>Your browser does not support the HTML5 canvas tag.
+
+    <div class="w3-panel w3-pink"> 
+      <h4 id="score" class="w3-text-white"></h4>
+    </div>
+
+    <canvas width="500" class="w3-center" height="500" id="ctx" style="border:2px solid #32CD32">Your browser does not support the HTML5 canvas tag. </canvas> </br>
+    <div class="w3-panel w3-pink"> 
+      <small><i><b>Instructions</b>: Use keyboard or buttons to move snake. Click to restart game.</small></i></br> </br> 
+      </div>
+    
+    
+    <!-- GAME -->
     <script type="text/javascript">
 
       var ctx = document.getElementById('ctx').getContext('2d');
