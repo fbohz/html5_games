@@ -53,10 +53,10 @@
           gamepadOnOff.classList.remove('on')
         } else {
           gamepad.innerHTML = 
-          `&nbsp;&nbsp;&nbsp;&nbsp; <button id="up" class="w3-button w3-indigo w3-round-xxxlarge" onclick="mangeKeyBtnPressed(event)">↑</button></br> 
-          <button id="left" class="w3-button w3-purple w3-round-xxxlarge" onclick="mangeKeyBtnPressed(event)">←</button>
-          <button id="right" class="w3-button w3-purple w3-round-xxxlarge"  onclick="mangeKeyBtnPressed(event)">→</button></br> 
-          &nbsp;&nbsp;&nbsp;&nbsp;<button id="down" class="w3-button w3-indigo w3-round-xxxlarge" onclick="mangeKeyBtnPressed(event)">↓</button></br>`
+          `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <button id="up" class="w3-button w3-indigo w3-round-xxxlarge" onclick="mangeKeyBtnPressed(event)">↑</button></br></br> 
+          <button id="left" class="w3-button w3-purple w3-round-xxxlarge" onclick="mangeKeyBtnPressed(event)">←</button>&nbsp;&nbsp;
+          <button id="right" class="w3-button w3-purple w3-round-xxxlarge"  onclick="mangeKeyBtnPressed(event)">→</button></br> </br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="down" class="w3-button w3-indigo w3-round-xxxlarge" onclick="mangeKeyBtnPressed(event)">↓</button></br>`
           gamepadOnOff.classList.add('on')
           gamepadOnOff.textContent = "Deactivate Gamepad"
 
