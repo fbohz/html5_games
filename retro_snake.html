@@ -11,8 +11,12 @@
       <h4 id="score" class="w3-text-white"></h4>
       <button id="up" class="w3-button w3-teal w3-round-xxlarge gamepadOnOff" onclick="activateGamepad(event)">Activate Gamepad</button></br></br>
       <div id="gamepad"></div>
-      <!-- <small><i><b>NOTE</b>: You can use keyboard or buttons to move snake. Click to restart game.</small></i></br> -->
     </div>
+    <!-- background music -->
+        <audio id="audio" loop>
+          <source src="./audio/contra1.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
     
     
     <!-- GAME -->
@@ -63,7 +67,7 @@
         //1 - Up
         //2 - Right
         //3 - Down
-
+        document.getElementById("audio").play()
         // console.log(event.target.id, event.keyCode)
         if ((event.keyCode == 37 || event.target.id == "left") && direction != 2) {
           direction = 0;
@@ -275,7 +279,10 @@
 
       document.getElementById('ctx').onmousedown = function() {
         if (running) {
+          const audio = document.getElementById("audio")
           clearInterval(intervalVar);
+          audio.pause()
+          audio.currentTime = 0
         }
         startGame();
       }
