@@ -28,6 +28,7 @@
       var HEIGHT = 500;
       var snakeList, foodList, direction, eaten, intervalVar, running = false;
       let score = 0;
+      const audio = document.getElementById("audio")
       ctx.font = '20px Calibri';
 
 
@@ -149,8 +150,10 @@
           //snake head will always collide with itself so we will not check that.
           if (i == 0) continue;
           if (testCollisionGameOver(snakeList[0], snakeList[i])) {
+              ctx.save()
               ctx.fillStyle = "lime";  
               ctx.fillText('Game Over! Refresh or click to restart',150,250);
+              ctx.restore()
               clearInterval(intervalVar);
               return;
           }
@@ -176,6 +179,11 @@
 
       const drawFood = (f,idx) => {
         ctx.save()
+        if (!running) {
+          ctx.fillStyle = "lime";  
+          ctx.fillText('Welcome! To start, move keyboard arrows or use gamepad.',5,15);
+
+        }
         ctx.fillStyle = food.color
 
         ctx.fillRect(f.x, f.y, food.width, food.height)
@@ -279,8 +287,8 @@
 
       document.getElementById('ctx').onmousedown = function() {
         if (running) {
-          const audio = document.getElementById("audio")
           clearInterval(intervalVar);
+          running = false
           audio.pause()
           audio.currentTime = 0
         }
