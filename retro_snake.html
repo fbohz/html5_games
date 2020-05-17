@@ -8,13 +8,17 @@
 
     <canvas width="500" class="w3-center" height="500" id="ctx" style="border:2px solid #32CD32">Your browser does not support the HTML5 canvas tag. </canvas> </br>
     <div class="w3-panel w3-pink"> 
-      <h4 id="score" class="w3-text-white"></h4>
+      <h4 id="score" class="w3-text" style="color: white"></h4>
       <button id="up" class="w3-button w3-teal w3-round-xxlarge gamepadOnOff" onclick="activateGamepad(event)">Activate Gamepad</button></br></br>
       <div id="gamepad"></div>
     </div>
     <!-- background music -->
         <audio id="audio" loop>
           <source src="./audio/contra1.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+        <audio id="levelup">
+          <source src="./audio/ff-0.mp3" type="audio/mpeg">
           Your browser does not support the audio element.
         </audio>
     
@@ -30,7 +34,9 @@
       let score = 0;
       let difficulty = 25 // starts 25 which is easier then it gets more difficult by calling checkDifficulty() below as it meets certain criteria.
       let increasedDifficulty = false
+      const scoreText = document.getElementById("score")
       const audio = document.getElementById("audio")
+      const levelup = document.getElementById("levelup")
       ctx.font = '20px Calibri';
 
 
@@ -63,6 +69,11 @@
           gamepadOnOff.textContent = "Deactivate Gamepad"
 
         }
+      }
+
+      const flashText = function(){
+        scoreText.classList.add("w3-animate-fading")
+        setTimeout(function(){scoreText.classList.remove("w3-animate-fading")}, 4000)
       }
 
       const mangeKeyBtnPressed = function(event) {
@@ -206,6 +217,11 @@
         if (diffParameters.includes(length) && !increasedDifficulty) {
             increasedDifficulty = true
             increaseDifficulty()
+            levelup.play()
+            score += 1
+            flashText()
+            
+            // levelup.currentTime = 0
         }
         else if (resetIncreasedDifficulty.includes(length)) {
           increasedDifficulty = false
@@ -240,7 +256,7 @@
         isGameOver()
         checkDifficulty()
         // ctx.fillStyle = "white"
-        document.getElementById("score").innerText = `Score: ${score}`
+        scoreText.innerText = `Score: ${score}`
         // ctx.fillText(`Score: ${score}`, 400, 30)
         
         if(testCollision(snakeList[0], foodList[0])) {
