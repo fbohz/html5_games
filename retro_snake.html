@@ -28,6 +28,8 @@
       var HEIGHT = 500;
       var snakeList, foodList, direction, eaten, intervalVar, running = false;
       let score = 0;
+      let difficulty = 25 //25
+      let increasedDifficulty = false
       const audio = document.getElementById("audio")
       ctx.font = '20px Calibri';
 
@@ -191,6 +193,26 @@
         ctx.restore()
       }
 
+      const increaseDifficulty = function() {
+        clearInterval(intervalVar);
+        difficulty -= 2
+        intervalVar = setInterval(updateSnakePosition, difficulty)
+      }
+
+      const checkDifficulty = function()  {
+        const length = snakeList.length
+        const diffParameters = [10,30,50,70,90,150,195]
+        const resetIncreasedDifficulty = [11,31,51,71,91,151,196]
+        if (diffParameters.includes(length) && !increasedDifficulty) {
+            increasedDifficulty = true
+            increaseDifficulty()
+        }
+        else if (resetIncreasedDifficulty.includes(length)) {
+          increasedDifficulty = false
+        }
+      }
+
+
       //function responsible for drawing everything in canvas
       const updateSnakePosition = function() {
         //clear canvas
@@ -216,6 +238,7 @@
         updateSnakeList()
         checkSnakePosition()
         isGameOver()
+        checkDifficulty()
         // ctx.fillStyle = "white"
         document.getElementById("score").innerText = `Score: ${score}`
         // ctx.fillText(`Score: ${score}`, 400, 30)
@@ -269,7 +292,6 @@
         }
       }
 
-
       const startGame = function() {
           snakeList = [
               {x: 220, y: 200}, //snake head
@@ -282,7 +304,7 @@
           eaten = true;
           //updateSnakePosition will be called every second and fresh snake will be drawn.
           //by adding to a variable it returns an integer that we can then stop.
-          intervalVar = setInterval(updateSnakePosition, 25)
+          intervalVar = setInterval(updateSnakePosition, difficulty)
       }
 
       document.getElementById('ctx').onmousedown = function() {
