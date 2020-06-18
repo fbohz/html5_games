@@ -24,6 +24,18 @@
         <audio id="gameover">
           <source src="./audio/contra0.mp3" type="audio/mpeg">
           Your browser does not support the audio element.
+        </audio loop>
+                <audio id="boss-level">
+          <source src="./audio/contra-boss.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+        <audio id="pro-level" loop>
+          <source src="./audio/contra-pro.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+        <audio id="eat">
+          <source src="./audio/sonic-ring.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
         </audio>
     
     <!-- GAME -->
@@ -42,6 +54,9 @@
       const levelup = document.getElementById("levelup")
       const gameover = document.getElementById("gameover")
       const boss = document.getElementById("boss-level")
+      const pro = document.getElementById("pro-level")
+      const eat = document.getElementById("eat")
+      eat.volume = 0.5
       ctx.font = '20px Calibri';
 
 
@@ -86,8 +101,9 @@
         //1 - Up
         //2 - Right
         //3 - Down
-        document.getElementById("audio").play()
         // console.log(event.target.id, event.keyCode)
+        // audio.play()
+        manageAudio()
         if ((event.keyCode == 37 || event.target.id == "left") && direction != 2) {
           direction = 0;
         }
@@ -234,7 +250,26 @@
         }
       }
 
-
+      const manageAudio = () => {
+        if (audio.paused && snakeList.length <= 3) {
+          audio.play()
+        }
+        else if (!audio.paused && snakeList.length === 70) {
+          audio.pause()
+          audio.currentTime = 0
+          pro.play()
+        }
+        else if (!pro.paused  && snakeList.length === 123) {
+          pro.pause()
+          pro.currentTime = 0
+          boss.play()
+        }
+        // else if (!pro.paused  && snakeList.length === 100) {
+        //   boss.pause()
+        //   boss.currentTime = 0
+        //   audio.play()
+        // }
+      }
       //function responsible for drawing everything in canvas
       const updateSnakePosition = function() {
         //clear canvas
@@ -261,12 +296,14 @@
         checkSnakePosition()
         isGameOver()
         checkDifficulty()
+        // manageAudio()
         // ctx.fillStyle = "white"
         scoreText.innerText = `Score: ${score}`
         // ctx.fillText(`Score: ${score}`, 400, 30)
         
         if(testCollision(snakeList[0], foodList[0])) {
           //if collision in snake head and food increase score
+          eat.play()
           score += 1
 
           foodList = [];
@@ -333,8 +370,9 @@
         if (running) {
           clearInterval(intervalVar);
           running = false
-          audio.pause()
-          audio.currentTime = 0
+          window.location.reload();
+          // audio.pause()
+          // audio.currentTime = 0
         }
         score = 0
         clearInterval(intervalVar);
