@@ -4,73 +4,104 @@
   <title>Retro Snake</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    .container {
+      display: flex;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      justify-content: space-between;
+      background-image: url('./img/snake.jpg');
+      /* background-size: cover; */
+    }
+
+    /* .button {
+      -webkit-box-flex: 1 1 auto;
+      -moz-box-flex: 1 1 auto;
+      -webkit-flex: 1 1 auto;
+      -ms-flex: 1 1 auto; 
+      flex: 1 1 auto;
+    } */
+  </style>
 </head>
 
 <body onload="populateScores()">
   <!-- <h3>Retro Snake</h3> -->
+  <div class="container w3-container">
+    <canvas width="500" class="w3-center" height="500" id="ctx" style="border:2px solid #32CD32">Your browser does not
+      support the HTML5 canvas tag. </canvas> </br>
 
-  <canvas width="500" class="w3-center" height="500" id="ctx" style="border:2px solid #32CD32">Your browser does not
-    support the HTML5 canvas tag. </canvas> </br>
-  <div class="w3-panel w3-pink">
-    <h4 id="score" class="w3-text" style="color: white"></h4>
+    <!-- Flex Buttons -->
+    <div class="w3-panel w3-pink">
+      <h4 id="score" class="w3-text" style="color: white; padding: 10px;"></h4>
 
-    <button id="up" class="w3-button w3-teal w3-round-xxlarge gamepadOnOff" onclick="activateGamepad(event)">Activate
-      Gamepad</button></br></br>
-    <div id="gamepad"></div>
-
-    <div class="w3-panel" style="color: white; padding: 0">
-      <button class="w3-button w3-yellow w3-round-xxlarge boardOnOff"
-        onclick="activateBoard(event)">Leaderboard🏅</button>
-      <ul class="w3-ul scores" style="display: none;">
-      </ul>
-    </div>
-  </div>
-  <!-- background music -->
-  <audio id="audio" loop>
-    <source src="./audio/contra1.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-  <audio id="levelup">
-    <source src="./audio/ff-0.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-  <audio id="gameover">
-    <source src="./audio/contra0.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-  <audio id="boss-level" loop>
-    <source src="./audio/contra-boss.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-  <audio id="pro-level" loop>
-    <source src="./audio/contra-pro.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-  <audio id="eat">
-    <source src="./audio/sonic-ring.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-
-  <div id="id01" class="w3-modal" style="display: none;">
-    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
-
-      <div class="w3-center"><br>
-        <span onclick="document.getElementById('id01').style.display='none'"
-          class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+      <div class="button" style="padding: 10px">
+        <button id="up" class="w3-button w3-teal w3-round-xxlarge gamepadOnOff"
+          onclick="activateGamepad(event)">Activate
+          Gamepad</button></br></br>
+        <div id="gamepad"></div>
       </div>
 
-      <!-- <form class="w3-container" action="/action_page.php"> -->
-      <form class="w3-container" onsubmit="event.preventDefault(); addNewScore()">
-        <div class="w3-section">
-          <h3>You made it to the Leaderboard🏅!</h3>
-          <label><b>What's your name?</b></label>
-          <input class="w3-input w3-border w3-margin-bottom username" type="text" placeholder="Enter your name"
-            name="username" required>
-          <button id="addScore" class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Submit</button>
+      <div class="button" style="color: white; padding: 10px">
+        <button class="w3-button w3-yellow w3-round-xxlarge boardOnOff"
+          onclick="activateBoard(event)">Leaderboard🏅</button>
+        <ul class="w3-ul scores" style="display: none; color: white">
+        </ul>
+      </div>
 
+    </div>
+    <!-- background music -->
+    <audio id="audio" loop>
+      <source src="./audio/contra1.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="levelup">
+      <source src="./audio/ff-0.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="gameover">
+      <source src="./audio/contra0.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="boss-level" loop>
+      <source src="./audio/contra-boss.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="pro-level" loop>
+      <source src="./audio/contra-pro.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="eat">
+      <source src="./audio/sonic-ring.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <!-- high score modal -->
+    <div id="id01" class="w3-modal" style="display: none;">
+      <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+        <div class="w3-center"><br>
+          <span onclick="document.getElementById('id01').style.display='none'"
+            class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
         </div>
-      </form>
 
+        <form class="w3-container" onsubmit="event.preventDefault(); addNewScore()">
+          <div class="w3-section">
+            <h3>You made it to the Leaderboard🏅!</h3>
+            <label><b>What's your name?</b></label>
+            <input class="w3-input w3-border w3-margin-bottom username" type="text" placeholder="Enter your name"
+              name="username" required>
+            <button id="addScore" class="w3-button w3-block w3-green w3-section w3-padding"
+              type="submit">Submit</button>
+
+          </div>
+        </form>
+
+      </div>
     </div>
   </div>
 
