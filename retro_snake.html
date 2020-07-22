@@ -50,7 +50,7 @@
       <div class="button" style="color: white; padding: 10px">
         <button class="w3-button w3-yellow w3-round-xxlarge boardOnOff"
           onclick="activateBoard(event)">Leaderboard🏅</button>
-        <ul class="w3-ul scores" style="display: none; color: white">
+        <ul class="w3-ul scores on" style="color: white">
         </ul>
       </div>
 
@@ -144,12 +144,12 @@
     const activateBoard = function (e) {
       const ul = document.querySelector('.scores')
 
-      if (ul.classList.contains('off')) {
-        ul.classList.remove('off')
-        ul.style.display = 'block'
-      } else {
-        ul.classList.add('off')
+      if (ul.classList.contains('on')) {
+        ul.classList.remove('on')
         ul.style.display = 'none'
+      } else {
+        ul.classList.add('on')
+        ul.style.display = 'block'
       }
 
     }
